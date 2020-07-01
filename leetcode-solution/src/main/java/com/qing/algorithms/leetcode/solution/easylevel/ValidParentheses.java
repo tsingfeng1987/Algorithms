@@ -1,6 +1,8 @@
 package com.qing.algorithms.leetcode.solution.easylevel;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * 20. 有效的括号
@@ -37,8 +39,38 @@ import java.util.LinkedList;
  */
 public class ValidParentheses {
     public boolean isValid(String s) {
+        if (s == null) {
+            return false;
+        }
         LinkedList<Character> linkedList = new LinkedList<>();
 
+        if (s.isEmpty()) {
+            return true;
+        }
+
+
+
+        for (int i = 0; i < s.length(); i++) {
+
+        }
+
+
+
         return true;
+    }
+
+
+    private Set<Character> openChars = new HashSet<>(4);
+    {
+        openChars.add('(');
+        openChars.add('{');
+        openChars.add('[');
+
+    }
+
+//    private Map<Character,Character>
+    private boolean isOpen(Character parenthesis) {
+
+        return false;
     }
 }
