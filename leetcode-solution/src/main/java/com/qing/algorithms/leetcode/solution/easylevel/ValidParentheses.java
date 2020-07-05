@@ -1,8 +1,6 @@
 package com.qing.algorithms.leetcode.solution.easylevel;
 
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 /**
  * 20. 有效的括号
@@ -42,35 +40,126 @@ public class ValidParentheses {
         if (s == null) {
             return false;
         }
-        LinkedList<Character> linkedList = new LinkedList<>();
 
-        if (s.isEmpty()) {
+        int length = s.length();
+        if (length == 0) {
             return true;
         }
+        if (length % 2 != 0) {
+            return false;
+        }
+
+        int charsLen = length >>> 1;
+        char[] chars = new char[charsLen];
+
+        int index = 0;
+        for (int i = 0; i < length; i++) {
+            char c = s.charAt(i);
+            if (c == '(' || c == '[' || c == '{') {
+                //左括号
+                if (index >= charsLen) {
+                    return false;
+                }
+                chars[index++] = c;
+                continue;
+            }
+
+            //右括号
+            if (index == 0) {
+                return false;
+            }
+
+            Character openByClose;
+            switch (c) {
+                case ')':
+                    openByClose = '(';
+                    break;
+                case ']':
+                    openByClose ='[';
+                    break;
+                case '}':
+                    openByClose ='{';
+                    break;
+                default:
+                    openByClose = null;
+            }
+            if (openByClose == null || chars[--index] != openByClose) {
+                return false;
+            }
+        }
+        return index == 0;
+    }
 
 
+    public boolean isValidByList(String s) {
 
-        for (int i = 0; i < s.length(); i++) {
+        if (s == null) {
+            return false;
+        }
 
+        int length = s.length();
+        if (length == 0) {
+            return true;
+        }
+        if (length % 2 != 0) {
+            return false;
+        }
+
+        LinkedList<Character> linkedList = new LinkedList<>();
+
+
+        for (int i = 0; i < length; i++) {
+            char c = s.charAt(i);
+            if (isOpen(c)) {
+                linkedList.addLast(c);
+                continue;
+            }
+            if (linkedList.isEmpty()) {
+                return false;
+            }
+
+            char ch = linkedList.removeLast();
+            Character openByClose;
+            switch (c) {
+                case ')':
+                    openByClose = '(';
+                    break;
+                case ']':
+                    openByClose ='[';
+                    break;
+                case '}':
+                    openByClose ='{';
+                    break;
+                default:
+                    openByClose = null;
+            }
+            if (openByClose == null || ch != openByClose) {
+                return false;
+            }
         }
 
 
-
-        return true;
+        return linkedList.isEmpty();
     }
 
 
-    private Set<Character> openChars = new HashSet<>(4);
-    {
-        openChars.add('(');
-        openChars.add('{');
-        openChars.add('[');
+
+
+    private boolean isOpen(char parenthesis) {
+        return parenthesis == '(' || parenthesis == '[' || parenthesis == '{';
 
     }
 
-//    private Map<Character,Character>
-    private boolean isOpen(Character parenthesis) {
-
-        return false;
+    private Character getOpenByClose(char close) {
+        switch (close) {
+            case ')':
+                return '(';
+            case ']':
+                return '[';
+            case '}':
+                return '{';
+            default:
+                return null;
+        }
     }
 }
