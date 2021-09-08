@@ -37,26 +37,27 @@ public class MedianOfTwoSortedArrays {
         }
 
         int newLen = nums1.length + nums2.length;
+
         int[] newNums = new int[newLen];
         int index1 = 0;
         int index2 = 0;
         int newIndex = 0;
 
         while (index1 < nums1.length && index2 < nums2.length) {
-            if (nums1[index1] > nums2[index2]) {
-                newNums[newIndex++] = nums2[index2++];
-            } else {
+            if (nums1[index1] < nums2[index2]) {
                 newNums[newIndex++] = nums1[index1++];
+            } else {
+                newNums[newIndex++] = nums2[index2++];
             }
         }
 
         if (index1 < nums1.length) {
             for (int i = newIndex; i < newLen; i++) {
-                newNums[newIndex] = nums1[index1++];
+                newNums[i] = nums1[index1++];
             }
         } else {
             for (int i = newIndex; i < newLen; i++) {
-                newNums[newIndex] = nums2[index2++];
+                newNums[i] = nums2[index2++];
             }
         }
 
@@ -72,4 +73,58 @@ public class MedianOfTwoSortedArrays {
             return ((double)(nums[divLen - 1] + nums[divLen])) / 2;
         }
     }
+
+
+    public double findMedianSortedArraysByHalf(int[] nums1, int[] nums2) {
+        if (nums1 == null || nums1.length == 0) {
+            return findMedianOfOfSortedArrayWithActualNums(nums2,nums2.length);
+        }
+
+        if (nums2 == null || nums2.length == 0) {
+            return findMedianOfOfSortedArrayWithActualNums(nums1, nums1.length);
+        }
+
+        int totalLen = nums1.length + nums2.length;
+        int newLen = totalLen / 2 + 1;
+        int[] newNums = new int[newLen];
+        int index1 = 0;
+        int index2 = 0;
+        int newIndex = 0;
+
+        while (index1 < nums1.length && index2 < nums2.length && newIndex < newLen) {
+            if (nums1[index1] < nums2[index2]) {
+                newNums[newIndex++] = nums1[index1++];
+            } else {
+                newNums[newIndex++] = nums2[index2++];
+            }
+        }
+
+        if (newIndex < newLen) {
+
+            if (index1 < nums1.length) {
+                for (int i = newIndex; i < newLen; i++) {
+                    newNums[i] = nums1[index1++];
+                }
+            } else {
+                for (int i = newIndex; i < newLen; i++) {
+                    newNums[i] = nums2[index2++];
+                }
+            }
+        }
+
+        return findMedianOfOfSortedArrayWithActualNums(newNums,totalLen);
+    }
+
+
+
+    private double findMedianOfOfSortedArrayWithActualNums(int[] nums,int totalLen) {
+        if (totalLen % 2 == 1) {
+            return nums[totalLen / 2];
+        } else {
+            int divLen = totalLen / 2;
+            return ((double)(nums[divLen - 1] + nums[divLen])) / 2;
+        }
+    }
+
+
 }
