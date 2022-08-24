@@ -17,9 +17,15 @@ package com.qing.algorithms.leetcode.solution.easylevel;
  * @date 2020/7/8
  */
 public class MaximumSubarray {
+
+    public static void main(String[] args) {
+        int[] nums = {1, 3, 6, 2, 6, 2, -1};
+        System.out.println(new MaximumSubarray().maxSubArray(nums));
+    }
     public int maxSubArray(int[] nums) {
         int maxSum = nums[0];
         int curSum = maxSum;
+
 
         for (int i = 1; i < nums.length; i++) {
             int num = nums[i];
