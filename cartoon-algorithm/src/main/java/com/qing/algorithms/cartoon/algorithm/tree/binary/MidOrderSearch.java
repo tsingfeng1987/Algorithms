@@ -26,7 +26,7 @@ public class MidOrderSearch {
         BinaryTreeNode node = treeNode;
         while (node != null || !stack.isEmpty()) {
 
-            //遍历当前节点及其左子节点，直到指向当前子树最左叶子节点的左子节点(NIL)
+            //将当前节点及其左子节点入栈，直到指向当前子树最左叶子节点的左子节点(NIL)
             while (node != null) {
 
                 stack.push(node);
