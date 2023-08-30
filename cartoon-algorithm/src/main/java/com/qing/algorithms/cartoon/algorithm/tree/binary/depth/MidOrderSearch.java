@@ -1,4 +1,6 @@
-package com.qing.algorithms.cartoon.algorithm.tree.binary;
+package com.qing.algorithms.cartoon.algorithm.tree.binary.depth;
+
+import com.qing.algorithms.cartoon.algorithm.tree.binary.BinaryTreeNode;
 
 import java.util.Stack;
 
